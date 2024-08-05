@@ -1,0 +1,20 @@
+class Solution(object):
+    def myPow(self, x, n):
+        if n==0:
+            return 1
+        
+        num=1.0
+   
+        if n<0:
+            global num
+            while n<0:
+                num=num*x
+                n+=1                
+            num=1/num
+            print("num",num)
+            return num
+
+        while n!=0:
+            num=(num*x)
+            n-=1
+        return num
