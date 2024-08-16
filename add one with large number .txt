@@ -1,0 +1,18 @@
+class Solution(object):
+    def plusOne(self, digits):
+
+        numstr=" "
+
+        for i in digits:
+            numstr+=str(i)
+
+
+        num=int(numstr)+1
+        strnum=str(num)
+        digits=[]
+
+        for k in range(0,len(strnum)):
+            digits.append(int(strnum[k]))
+           
+            
+        return digits
