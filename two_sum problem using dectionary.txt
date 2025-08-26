@@ -1,0 +1,15 @@
+# add two sum problem 
+
+class Solution(object):
+    def twoSum(self, nums, target):
+
+        dec={}
+        
+
+        for i, valu in enumerate(nums):
+            sec=target-valu
+
+            if sec in dec:
+                return [i,dec[sec]]
+            
+            dec[valu]=i
