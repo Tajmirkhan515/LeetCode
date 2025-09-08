@@ -1,0 +1,16 @@
+class Solution(object):
+    def removeStars(self, s):
+        
+        stk=[]
+
+        for i in range(0,len(s)):
+            if s[i]=='*':
+                stk.pop()
+
+            else:
+                stk.append(s[i])
+        
+        return "".join(stk)
+
+
+        
