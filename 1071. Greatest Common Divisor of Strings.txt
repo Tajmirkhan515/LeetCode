@@ -1,0 +1,12 @@
+class Solution(object):
+    def gcdOfStrings(self, str1, str2):
+
+        smaller = str1 if len(str1) < len(str2) else str2
+        
+        for i in range(len(smaller), 0, -1):
+            candidate = smaller[:i]  # take prefix  e.g "ABC" "AB" "A"
+            # Check if candidate divides both
+            if str1 == candidate * (len(str1) // len(candidate)) and \ A*2= AA, AB*2=ABAB
+            str2 == candidate * (len(str2) // len(candidate)):
+                return candidate
+        return ""
