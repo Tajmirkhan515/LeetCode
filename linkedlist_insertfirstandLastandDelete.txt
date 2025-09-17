@@ -1,0 +1,59 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        
+    def insertFirst(self, data):
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+            
+    def insertLast(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+        else:
+            temp = self.head
+            while temp.next:
+                temp = temp.next
+            temp.next = new_node
+    
+    def printList(self):
+        temp = self.head
+        while temp:
+            print(temp.data, end=" -> ")
+            temp = temp.next
+        print("None")
+
+   
+    def deleteNode(self, node):
+        if node is None or node.next is None:
+            print("Cannot delete this node")
+            return
+        node.data = node.next.data     # copy data from next node
+        node.next = node.next.next     # bypass next node
+
+
+# ---------------------------
+# Example Usage
+# ---------------------------
+
+ll = LinkedList()
+ll.insertLast(4)
+ll.insertLast(5)
+ll.insertLast(1)
+ll.insertLast(9)
+
+print("Original List:")
+ll.printList()
+
+# delete node with value 5 (we point directly to the node)
+node_to_delete = ll.head  # node with value 5
+ll.deleteNode(node_to_delete)
+
+print("After Deleting 5:")
+ll.printList()
