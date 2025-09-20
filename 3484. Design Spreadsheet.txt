@@ -10,7 +10,7 @@ class Spreadsheet(object):
     def resetCell(self, cell):
         """Reset cell back to 0 (remove stored value)."""
         if cell in self.d:
-            del self.d[cell]
+            self.d[cell]=0
 
     def getValue(self, formula):
         """
@@ -20,17 +20,8 @@ class Spreadsheet(object):
         parts = formula[1:].split('+')  # remove '=' and split
         total = 0
         for token in parts:
-            if token and token[0].isdigit():   # number literal
+            if token.isdigit():   # number literal
                 total += int(token)
             else:                              # cell reference
                 total += self.d.get(token, 0)
         return total
-        
-s = Spreadsheet(3)
-print(s.getValue("=5+7"))   # 12
-s.setCell("A1", 10)
-print(s.getValue("=A1+6"))  # 16
-s.setCell("B2", 15)
-print(s.getValue("=A1+B2")) # 25
-s.resetCell("A1")
-print(s.getValue("=A1+B2")) # 15
