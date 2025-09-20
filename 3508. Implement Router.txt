@@ -1,0 +1,36 @@
+from collections import deque, defaultdict
+import bisect
+
+class Router:
+    def __init__(self, memoryLimit):
+        self.memoryLimit = memoryLimit
+        self.queue = deque()                  # stores packets in FIFO order
+        self.seen = set()                     # to block duplicates
+        self.dstTimestamps = defaultdict(list)  # dest -> sorted list of timestamps
+        self.processedCount = defaultdict(int)  # how many forwarded per dest
+
+    def addPacket(self, source, destination, timestamp):
+        key = (source, destination, timestamp)
+        if key in self.seen:
+            return False
+        if len(self.queue) == self.memoryLimit:
+            self.forwardPacket()
+        self.queue.append(key)
+        self.seen.add(key)
+        self.dstTimestamps[destination].append(timestamp)
+        return True
+
+    def forwardPacket(self):
+        if not self.queue:          # ✅ correct empty check
+            return []
+        src, dst, ts = self.queue.popleft()
+        self.seen.remove((src, dst, ts))
+        self.processedCount[dst] += 1
+        return [src, dst, ts]
+
+    def getCount(self, destination, startTime, endTime):
+        timestamps = self.dstTimestamps.get(destination, [])
+        startIndex = self.processedCount[destination]
+        i = bisect.bisect_left(timestamps, startTime, lo=startIndex)
+        j = bisect.bisect_right(timestamps, endTime, lo=startIndex)
+        return j - i
