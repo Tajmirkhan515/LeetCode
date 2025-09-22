@@ -1,0 +1,21 @@
+class Solution(object):
+    def maxFrequencyElements(self, nums):
+        dec={}
+
+        for item in nums:
+            if item in dec:
+                dec[item]=dec.get(item)+1
+            else:
+                dec[item]=1
+
+
+        max_freq = max(dec.values())
+
+        total = 0
+        for val in dec.values():
+            if val == max_freq:
+                total += val
+
+
+        return total
+        
