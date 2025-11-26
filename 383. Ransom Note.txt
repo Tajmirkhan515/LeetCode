@@ -1,0 +1,18 @@
+class Solution(object):
+    def canConstruct(self, ransomNote, magazine):
+        """
+        :type ransomNote: str
+        :type magazine: str
+        :rtype: bool
+        """
+        checkhash={}
+
+        for char in magazine:
+            checkhash[char] = checkhash.get(char, 0) + 1
+        
+        for char in ransomNote:
+            if char not in checkhash or checkhash[char]==0:
+                return False
+            checkhash[char]-=1
+        
+        return True
