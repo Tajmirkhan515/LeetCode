@@ -1,0 +1,26 @@
+class Solution(object):
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        row=len(grid)
+        col=len(grid[0])
+        numberOfIsland=0
+
+        def dfs(i,j):
+            if i>=0 and i<row and j>=0 and j<col and grid[i][j]=='1':
+                grid[i][j]='0'
+                dfs(i-1,j)
+                dfs(i+1,j)
+                dfs(i,j-1)
+                dfs(i,j+1)
+
+        for i in range (row):
+            for j in range(col):
+                if grid[i][j]=='1':
+                    numberOfIsland+=1
+                    dfs(i,j)
+
+
+        return numberOfIsland
