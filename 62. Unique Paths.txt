@@ -1,0 +1,17 @@
+    def uniquePaths(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        def solve(i,j):
+            if i>=m or j>=n:
+                return 0
+
+            if i==m-1 and j==n-1:
+                return 1
+            
+            right=solve(i,j+1)
+            down=solve(i+1,j)
+            return right+down
+        return solve(0,0)
