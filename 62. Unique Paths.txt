@@ -1,10 +1,14 @@
+class Solution(object):
     def uniquePaths(self, m, n):
         """
         :type m: int
         :type n: int
         :rtype: int
         """
+        memo={}
         def solve(i,j):
+            if (i,j) in memo:
+                return memo[(i,j)]
             if i>=m or j>=n:
                 return 0
 
@@ -13,5 +17,7 @@
             
             right=solve(i,j+1)
             down=solve(i+1,j)
+            memo[(i,j)]=right+down
             return right+down
         return solve(0,0)
+        
